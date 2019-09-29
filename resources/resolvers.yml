@@ -1,0 +1,5 @@
+- dataSource: "listBooks"
+  type: Query
+  field: "listBooks"
+  request: "book/query.listBooks-request.vtl"
+  response: "common-response.vtl"

@@ -1,0 +1,4 @@
+- type: AWS_LAMBDA
+  name: "listBooks"
+  config:
+    functionName: "listBooks"

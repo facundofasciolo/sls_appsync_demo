@@ -1,0 +1,47 @@
+service: sls-appsync-demo
+
+
+plugins:
+  - serverless-appsync-plugin
+  - serverless-appsync-offline
+  - serverless-offline
+
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'local'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - lambda:*
+        - s3:*
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:*:*
+        - arn:aws:lambda:${self:provider.region}:*:*
+  environment:
+    REGION: "${self:provider.region}"
+    STAGE: "${self:provider.stage}"
+    APPSYNC_NAME: "${self:custom.defaultPrefix}-appsync"
+
+
+custom:
+  appSync: # appsync plugin configuration
+    name: "${self:provider.environment.APPSYNC_NAME}"
+    authenticationType: API_KEY
+    serviceRole: "AppSyncServiceRole"
+    dataSources: ${file(resources/data-sources.yml)}
+    mappingTemplates: ${file(resources/resolvers.yml)}
+  appsync-offline: # appsync-offline configuration
+    port: 62222
+  defaultPrefix: ${self:service}-${self:provider.stage}
+
+
+functions:
+  - ${file(resources/lambda-functions.yml)}
+
+resources:
+  # Roles
+  - ${file(resources/roles.yml)}

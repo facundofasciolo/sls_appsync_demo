@@ -1,0 +1,16 @@
+# Entities
+type Book {
+  id: ID!
+  title: String
+}
+
+# Define the queries
+type Query {
+  listBooks: [Book]
+}
+
+# Define the schema
+schema {
+  # all the queries
+  query: Query
+}

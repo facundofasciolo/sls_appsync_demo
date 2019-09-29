@@ -1,0 +1,29 @@
+Resources:
+  AppSyncServiceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "${self:custom.defaultPrefix}-${self:custom.appSync.serviceRole}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "appsync.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: "${self:custom.defaultPrefix}-${self:custom.appSync.serviceRole}-Policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                  - lambda:*
+                  - s3:*
+                Resource:
+                  - arn:aws:dynamodb:${self:provider.region}:*:*
+                  - arn:aws:lambda:${self:provider.region}:*:*
+                  - arn:aws:s3:::${self:custom.appSync.name}-images/*
+                  - arn:aws:s3:::adventurist-cache/*

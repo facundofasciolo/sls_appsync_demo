@@ -1,0 +1,7 @@
+listBooks:
+  handler: lambda-functions/book/listBooks/index.handler
+  package:
+    include:
+      - '!**'
+      - lambda-functions/util/**
+      - lambda-functions/book/listBooks/**
