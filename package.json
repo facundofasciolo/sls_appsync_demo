@@ -7,6 +7,7 @@
   "devDependencies": {
     "serverless-appsync-offline": "^1.3.3",
     "serverless-appsync-plugin": "^1.1.2",
+    "serverless-dynamodb-local": "^0.2.38",
     "serverless-offline": "^5.10.1"
   },
   "repository": {

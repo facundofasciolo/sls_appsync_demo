@@ -2,6 +2,7 @@ service: sls-appsync-demo
 
 
 plugins:
+  - serverless-dynamodb-local
   - serverless-appsync-plugin
   - serverless-appsync-offline
   - serverless-offline
@@ -28,6 +29,14 @@ provider:
 
 
 custom:
+  dynamodb:
+    stages:
+      - local
+    start:
+      port: 8000
+      inMemory: false
+      dbPath: "dynamodb_local_data"
+      migrate: false
   appSync: # appsync plugin configuration
     name: "${self:provider.environment.APPSYNC_NAME}"
     authenticationType: API_KEY
@@ -36,6 +45,10 @@ custom:
     mappingTemplates: ${file(resources/resolvers.yml)}
   appsync-offline: # appsync-offline configuration
     port: 62222
+    dynamodb:
+      client:
+        endpoint: "http://localhost:8000"
+        region: localhost
   defaultPrefix: ${self:service}-${self:provider.stage}
 
 
@@ -45,3 +58,5 @@ functions:
 resources:
   # Roles
   - ${file(resources/roles.yml)}
+  # DynamoDB tables
+  - ${file(resources/dynamodb-tables.yml)}
