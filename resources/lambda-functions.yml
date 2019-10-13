@@ -5,3 +5,24 @@ listBooks:
       - '!**'
       - lambda-functions/util/**
       - lambda-functions/book/listBooks/**
+getBook:
+  handler: lambda-functions/book/getBook/index.handler
+  package:
+    include:
+      - '!**'
+      - lambda-functions/util/**
+      - lambda-functions/book/getBook/**
+createBook:
+  handler: lambda-functions/book/createBook/index.handler
+  package:
+    include:
+      - '!**'
+      - lambda-functions/util/**
+      - lambda-functions/book/createBook/**
+updateBook:
+  handler: lambda-functions/book/updateBook/index.handler
+  package:
+    include:
+      - '!**'
+      - lambda-functions/util/**
+      - lambda-functions/book/updateBook/**

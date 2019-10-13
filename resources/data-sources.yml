@@ -2,3 +2,15 @@
   name: "listBooks"
   config:
     functionName: "listBooks"
+- type: AWS_LAMBDA
+  name: "getBook"
+  config:
+    functionName: "getBook"
+- type: AWS_LAMBDA
+  name: "createBook"
+  config:
+    functionName: "createBook"
+- type: AWS_LAMBDA
+  name: "updateBook"
+  config:
+    functionName: "updateBook"

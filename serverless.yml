@@ -26,7 +26,7 @@ provider:
     REGION: "${self:provider.region}"
     STAGE: "${self:provider.stage}"
     APPSYNC_NAME: "${self:custom.defaultPrefix}-appsync"
-
+    BOOK_TABLE_NAME: "${self:custom.defaultPrefix}-book"
 
 custom:
   dynamodb:
@@ -52,8 +52,19 @@ custom:
   defaultPrefix: ${self:service}-${self:provider.stage}
 
 
+layers:
+  vendor:
+    path: lambda-functions/layers/vendor
+    description: Third party libraries.
+    compatibleRuntimes:
+      - "${self:provider.runtime}"
+    allowedAccounts:
+      - '*'
+
+
 functions:
   - ${file(resources/lambda-functions.yml)}
+
 
 resources:
   # Roles

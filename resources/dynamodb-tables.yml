@@ -2,7 +2,7 @@ Resources:
   TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: "${self:custom.defaultPrefix}-book"
+      TableName: "${self:provider.environment.BOOK_TABLE_NAME}"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S

@@ -1,16 +1,21 @@
-exports.handler = async (event) => {
-  console.log({event});
+const uuid = require('uuid');
+const { list } = require('./../../util/dynamo/operations');
 
-  const books = [
-    {
-      id: '1',
-      title: 'First mocked book'
-    },
-    {
-      id: '2',
-      title: 'Second mocked book'
-    }
-  ];
-  console.log(books);
+const {BOOK_TABLE_NAME} = process.env;
+
+exports.handler = async (event) => {
+  console.log('--------------------');
+  console.log('---- listBooks/index.js');
+  console.log('--------------------');
+  console.log({event});
+    
+  const {arguments} = event;
+  const {nextToken, limit} = arguments;
+  
+  const books = await list({
+    limit,
+    nextToken,
+    tableName: BOOK_TABLE_NAME
+  });
   return books;
 };

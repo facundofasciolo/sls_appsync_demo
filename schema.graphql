@@ -1,16 +1,39 @@
 # Entities
 type Book {
   id: ID!
+  title: String!
+}
+
+# Inputs
+input CreateBookInput {
+  title: String!
+}
+input UpdateBookInput {
+  id: ID!
   title: String
 }
 
+# List responses
+type BookListResponse {
+  items: [Book]
+  nextToken: String
+}
+
+
 # Define the queries
 type Query {
-  listBooks: [Book]
+  getBook(id: ID!): Book 
+  listBooks(limit: Int, nextToken: String): BookListResponse
+}
+
+# Define the mutations
+type Mutation {
+  createBook(input: CreateBookInput): Book 
+  updateBook(input: UpdateBookInput): Book 
 }
 
 # Define the schema
 schema {
-  # all the queries
   query: Query
+  mutation: Mutation
 }
